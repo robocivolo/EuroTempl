@@ -20,3 +20,4 @@ dependencies:
     - psycopg2-binary
     - drf-spectacular
     - postgis
+    - semver
