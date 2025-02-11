@@ -69,14 +69,17 @@ Before setting up the project, ensure you have:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourorg/eurotemp.git
-   cd eurotemp
+   git clone https://github.com/yourorg/eurotempl.git
+   cd eurotempl
    ```
 
 2. Create and activate a virtual environment:
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   conda env create -f environment.yml
+   conda activate EuroTempl  
+# verify the installation
+   python -c "import django; print(django.__version__)"
+   python -c "import FreeCAD; print(FreeCAD.Version())"
    ```
 
 3. Install backend dependencies:
