@@ -62,7 +62,7 @@ class Parameter(models.Model):
 
     valid_ranges = JSONField(
         default=dict,
-        blank=True,  # Add this to allow empty dict
+        blank=True, 
 
         help_text="Defines acceptable value ranges and constraints"
     )

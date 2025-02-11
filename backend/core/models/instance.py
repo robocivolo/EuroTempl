@@ -140,7 +140,7 @@ class ComponentInstance(gis_models.Model):
                 'instance_properties': 'Properties must be a dictionary'
             })
 
-        # Additional property validation could be implemented here
+        # Additional property validation should be implemented here
         # based on component-specific requirements
 
     def _validate_temporal_consistency(self):
@@ -176,7 +176,7 @@ class ComponentInstance(gis_models.Model):
             instance_properties=self.instance_properties,
             version=self.version + 1,
             status=self.status,
-            internal_id=next_internal_id  # Add the next internal_id
+            internal_id=next_internal_id 
         )
         return new_instance
     def calculate_bounding_box(self):

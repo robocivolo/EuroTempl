@@ -120,7 +120,7 @@ class Component(gis_models.Model):
         coords = self.base_geometry.coords
         for coord in coords[0]:  # Check first ring coordinates
             x, y, z = coord
-            if any(c % 25 != 0 for c in (x, y)):  # Only check x,y alignment
+            if any(c % 25 != 0 for c in (x, y)):  # Only check x,y alignment !
                 raise ValidationError({
                     'base_geometry': 'Geometry must align with 25mm grid system'
                 })
@@ -148,8 +148,8 @@ class Component(gis_models.Model):
         instance = ComponentInstance.objects.create(
             component=self,
             spatial_data=self.base_geometry,
-            spatial_bbox=self.base_geometry.envelope,  # Calculate bbox from geometry
-            instance_properties={"finish": "matte"},  # Empty dict as default
+            spatial_bbox=self.base_geometry.envelope,
+            instance_properties={"finish": "matte"},
             status=ComponentStatus.PLANNED.value,
             version=1,
             internal_id=next_internal_id
