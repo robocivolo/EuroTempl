@@ -136,17 +136,26 @@ class Component(gis_models.Model):
         return f"{self.classification} - {self.name} (v{self.version})"
 
     # Model methods for component operations
-    def create_instance(self, spatial_data=None, instance_properties=None):
-        """
-        Create a new ComponentInstance from this component definition.
-        """
-        from .instance import ComponentInstance  # Avoid circular import
+    def create_instance(self):
+        """Create a new ComponentInstance from this component definition."""
+        from .instance import ComponentInstance, ComponentStatus  # Avoid circular import
         
-        return ComponentInstance.objects.create(
+        # Get next internal_id
+        last_internal_id = ComponentInstance.objects.all().order_by('-internal_id').first()
+        next_internal_id = (last_internal_id.internal_id + 1) if last_internal_id else 1
+        
+        # Create instance with all required fields
+        instance = ComponentInstance.objects.create(
             component=self,
-            location=spatial_data or self.base_geometry,  # Changed from spatial_data to location
-            properties=instance_properties or {}  # Changed from instance_properties to properties
+            spatial_data=self.base_geometry,
+            spatial_bbox=self.base_geometry.envelope,  # Calculate bbox from geometry
+            instance_properties={"finish": "matte"},  # Empty dict as default
+            status=ComponentStatus.PLANNED.value,
+            version=1,
+            internal_id=next_internal_id
         )
+        return instance
+
     def get_parameters(self):
         """
         Retrieve all parameters associated with this component.

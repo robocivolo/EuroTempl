@@ -139,5 +139,5 @@ class TestComponent:
         component = Component.objects.create(**valid_component_data)
         instance = component.create_instance()
         assert instance.component == component
-        assert instance.location == component.base_geometry  # Changed from spatial_data to location
-        assert instance.properties == {}  # Added to test default properties
+        assert instance.spatial_data == component.base_geometry  # Changed from location
+        assert instance.instance_properties == {'finish': 'matte'}  # Changed from properties
