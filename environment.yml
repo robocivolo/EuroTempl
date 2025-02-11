@@ -11,6 +11,8 @@ dependencies:
   - pytest
   - pytest-django
   - freecad
+  - gdal
+  - libgdal
   - pip
   - pip:
     - django-cors-headers
